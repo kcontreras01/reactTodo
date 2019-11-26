@@ -1,9 +1,23 @@
 import React from 'react';
 
-const ListItem = ({title}) => {
+const ListItem = ({title, completed, handleChange}) => {
+	const completedStyle = {
+		fontStyle: 'italic',
+		color: '#cdcdcd',
+		textDecoration: 'line-through'
+	}
+
   return (
     <React.Fragment>
-    	<h1>{title}</h1>
+    	<p style={completed ? completedStyle : null}>
+    		{title}
+    	</p>
+    	<input 
+    		type="checkbox" 
+    		value={completed} 
+    		checked={completed}
+    		onChange={() => handleChange}/>
+    	<br />
     </React.Fragment>
   );
 }

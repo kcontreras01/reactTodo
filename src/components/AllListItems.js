@@ -1,28 +1,52 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import ListItem from './ListItem'
 
-const AllListItems = () => {
-	const [todos, setTodos] = useState([]);
-  const exampleRequest = 'https://jsonplaceholder.typicode.com/todos'
+class AllListItems extends Component {
+	constructor() {
+		super()
 
-	useEffect(() => {
-		getTodos()
-	}, [])
+		this.state = {
+	  	todos: []
+	  }
 
-	const getTodos = async () => {
-    const response = await fetch(`${exampleRequest}`);
-    const data = await response.json();
-		setTodos(data)
+	  this.handleChange = this.handleChange.bind(this)
 	}
+ 
+	componentDidMount() {
+		fetch("https://jsonplaceholder.typicode.com/users")
+			.then(res => res.json())
+			.then(res => this.setState({
+					todos: res
+				}))
+			.catch(err => console.log(err))		
+	} 
 
-  return (
-    <React.Fragment>
-    	{ todos.map(todo =>
-    		<ListItem key={todo.id} title={todo.title}/>
-    		)	
-    	}
-    </React.Fragment>
-  );
+  handleChange(id){
+    this.setState(prevState => {
+        const updatedTodos = prevState.todos.map(todo => {
+            if (todo.id === id) {
+                todo.completed = !todo.completed
+            }
+            return todo
+        })
+        return {
+            todos: updatedTodos
+        }
+    })
+  }
+
+  render() {
+	  return (
+	    <React.Fragment>
+	    	{ this.state.todos.map(todo =>
+	    		<ListItem 
+	    			key={todo.id} 
+	    			/>
+	    		)	
+	    	}
+	    </React.Fragment>
+	  );
+  }
 }
 
 export default AllListItems;
