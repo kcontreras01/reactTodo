@@ -6,7 +6,7 @@ class AllListItems extends Component {
 		super()
 
 		this.state = {
-	  	todos: []
+	  	users: []
 	  }
 
 	  this.handleChange = this.handleChange.bind(this)
@@ -16,21 +16,21 @@ class AllListItems extends Component {
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then(res => res.json())
 			.then(res => this.setState({
-					todos: res
+					users: res
 				}))
 			.catch(err => console.log(err))		
 	} 
 
   handleChange(id){
     this.setState(prevState => {
-        const updatedTodos = prevState.todos.map(todo => {
-            if (todo.id === id) {
-                todo.completed = !todo.completed
+        const updatedTodos = prevState.users.map(user => {
+            if (user.id === id) {
+                user.completed = !user.completed
             }
-            return todo
+            return user
         })
         return {
-            todos: updatedTodos
+            users: updatedTodos
         }
     })
   }
@@ -38,9 +38,10 @@ class AllListItems extends Component {
   render() {
 	  return (
 	    <React.Fragment>
-	    	{ this.state.todos.map(todo =>
+	    	{ this.state.users.map(user =>
 	    		<ListItem 
-	    			key={todo.id} 
+	    			key={user.id}
+	    			user={user} 
 	    			/>
 	    		)	
 	    	}

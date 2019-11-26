@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListItem = ({title, completed, handleChange}) => {
+const ListItem = ({user}) => {
 	const completedStyle = {
 		fontStyle: 'italic',
 		color: '#cdcdcd',
@@ -9,14 +9,9 @@ const ListItem = ({title, completed, handleChange}) => {
 
   return (
     <React.Fragment>
-    	<p style={completed ? completedStyle : null}>
-    		{title}
-    	</p>
-    	<input 
-    		type="checkbox" 
-    		value={completed} 
-    		checked={completed}
-    		onChange={() => handleChange}/>
+    	<p>{user.name}</p>
+    	<p>{user.email}</p>
+    	<p>{user.phone}</p>
     	<br />
     </React.Fragment>
   );
